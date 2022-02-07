@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在8月26日周四这一天，终于把本月初就想要安装的Linux系统给装好了，可谓是费尽心思耗时许久。装的时候遇到了许多坑，在此把自己的安装步骤记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win10 + Ubuntu20.04双系统安装">
+<meta property="og:url" content="http://example.com/2021/08/27/3_about_Linux/index.html">
+<meta property="og:site_name" content="林肯法球">
+<meta property="og:description" content="在8月26日周四这一天，终于把本月初就想要安装的Linux系统给装好了，可谓是费尽心思耗时许久。装的时候遇到了许多坑，在此把自己的安装步骤记录下来。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img1.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img2.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img3.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img6.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img4.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img5.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/aHR0cHM6Ly93dzMuc2luYWltZy5jbi9sYXJnZS8wMDVTRXg2OGp3MWV2eHFvcTd3NjFqMzBmdDBkZTQxcS5qcGc.jpeg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img8.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img9.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img10.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img11.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img12.png">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img13.jpeg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img14.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img15.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img16.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img17.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img18.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img19.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img20.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img21.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img22.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img23.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img24.jpg">
+<meta property="og:image" content="http://example.com/2021/08/27/3_about_Linux/img25.jpg">
+<meta property="article:published_time" content="2021-08-27T13:35:41.000Z">
+<meta property="article:modified_time" content="2021-10-14T06:31:06.254Z">
+<meta property="article:author" content="GX Li">
+<meta property="article:tag" content="安装">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/08/27/3_about_Linux/img1.png">
+
+<link rel="canonical" href="http://example.com/2021/08/27/3_about_Linux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Win10 + Ubuntu20.04双系统安装 | 林肯法球</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">林肯法球</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/3_about_Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="GX Li">
+      <meta itemprop="description" content="大家好我是VAE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林肯法球">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Win10 + Ubuntu20.04双系统安装
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-27 21:35:41" itemprop="dateCreated datePublished" datetime="2021-08-27T21:35:41+08:00">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-14 14:31:06" itemprop="dateModified" datetime="2021-10-14T14:31:06+08:00">2021-10-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">技术向</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在8月26日周四这一天，终于把本月初就想要安装的Linux系统给装好了，可谓是费尽心思耗时许久。装的时候遇到了许多坑，在此把自己的安装步骤记录下来。</p>
+<span id="more"></span>
+
+<hr>
+<p><strong>0.前言</strong></p>
+<p>暑假里陆陆续续在服务器上试了几种安装Linux的方法，首先是虚拟机VMware中安装Linux，安装倒是挺简单的，但是虚拟机中不能直接使用物理机的GPU，要设置显卡直通，按照教程来结果中间就出问题了，遂放弃···然后试了微软的黑科技：win10的应用商店中下载Ubuntu来尝试直接在win10系统运行linux，达到双系统的效果。结果也是败在了使用GPU上，即使按照CUDA官方的教程来也无法使用GPU，就是在测试官方的demo：BlackScholes那里失败了，遂又放弃···问了下Linux dalao后得知，在虚拟机中运行深度学习代码会损失很多性能，并且容易有很多bug，遂放弃虚拟机。不过个人感觉微软的黑科技挺好的，只是我不会用，最终选择了安装双系统。</p>
+<p><strong>1.制作ubuntu系统的U盘启动盘</strong></p>
+<p>进入<a target="_blank" rel="noopener" href="https://ubuntu.com/download#download">Ubuntu官网</a>下载Ubuntu 20.04.3 LTS镜像文件，再安装一个可以制作U盘启动盘的软件<del>并~~~~将其破解</del>，如UltraISO。</p>
+<p>(1)首先，打开UltraISO，点击“文件” -&gt; “打开”，打开下载过来的Ubuntu的ISO镜像。</p>
+<p><img src="/2021/08/27/3_about_Linux/img1.png" alt="img1"></p>
+<p>(2)然后选择U盘</p>
+<p><img src="/2021/08/27/3_about_Linux/img2.png" alt="img2"></p>
+<p>注意：U盘最好是空的，如果里面有文件，一定要在其他地方保存好，因为待会儿要格式化。</p>
+<p>(3)点击“启动“ -&gt; ”写入磁盘映像…“</p>
+<p><img src="/2021/08/27/3_about_Linux/img3.png" alt="img3"></p>
+<p>(4)写入方式一般选择hdd或者hdd+，选择了写入方式之后要先进行格式化。</p>
+<p><img src="/2021/08/27/3_about_Linux/img6.png" alt="img6"></p>
+<p>PS: 然而第一次试着做U盘启动盘的时候出现了以下的情况…一直无法将U盘格式化，虽然说我的U盘是已经格式化过的，但是这个软件不用它的格式化的话就一直无法进行写入。</p>
+<p><img src="/2021/08/27/3_about_Linux/img4.png" alt="img4"></p>
+<p>试了网上所有的方法后都不能解决这个问题(8月6日)，然后就放弃了···之后试了下另一个制作U盘启动盘的软件，名字叫大白菜ISO，还挺接地气的，试了下之后制作完成了，方法差不多。由于Ubuntu系统最后安装失败（8月25日），最后还是重新用UltraISO来制作启动盘，没想到一次就成功了···真是奇怪啊 =_=！</p>
+<p>(5)点击”写入”后等待完成即可。</p>
+<p><img src="/2021/08/27/3_about_Linux/img5.png" alt="img5"></p>
+<p>出现这样的界面就说明Ubuntu系统的U盘启动盘已经制作成功了。</p>
+<p><strong>1.5 通过EasyBCD建立引导来安装linux</strong></p>
+<p>使用该方法就不需要再制作U盘启动盘了，过程如下。</p>
+<p>(1)下载安装EasyBCD</p>
+<p>(2)官网下载ubuntu镜像</p>
+<p>(3)将ISO文件移动到任意盘的根目录，如C盘、D盘，然后将ISO解压至根目录下。</p>
+<p>(4)安装并运行EasyBCD系统引导软件。如下图点击软件窗口左侧“EasyBCD工具箱”中的“添加新条目”，然后在右侧窗口的便携式/外接存储介质下点击ISO，名字随意最好为默认，路径处找到之前下载好并放到根目录下的Ubuntu ISO镜像，点击“添加条目”。则Ubuntu相关启动项已经被添加到系统启动菜单中。</p>
+<p><img src="/2021/08/27/3_about_Linux/aHR0cHM6Ly93dzMuc2luYWltZy5jbi9sYXJnZS8wMDVTRXg2OGp3MWV2eHFvcTd3NjFqMzBmdDBkZTQxcS5qcGc.jpeg" alt="在这里插入图片描述"></p>
+<p>(这张图反正都是要改的，先放着吧！)</p>
+<p>之后创建完硬盘空白分区后跳转至3.5。</p>
+<p><strong>2.创建硬盘空白分区</strong></p>
+<p>现在需要给Linux系统整点硬盘空间，流程为：右键我的电脑(也有可能叫此电脑) -&gt;点击“管理” -&gt; 点击“存储” -&gt; 点击“磁盘管理” -&gt; 随便挑选一个幸运儿进行一个卷的压缩(建议不要选C盘，因为压缩的内存会很大)。</p>
+<p><img src="/2021/08/27/3_about_Linux/img8.png" alt="img8"></p>
+<p>建议压缩的空间量大一点，但是我内存不够了，就整了50G。</p>
+<p><img src="/2021/08/27/3_about_Linux/img9.png" alt="img9"></p>
+<p><strong>3.关闭win10系统的快速启动和安全启动</strong></p>
+<p>(1)关闭快速启动</p>
+<p>任务栏左方的搜索栏中搜索“电源和睡眠设置” -&gt; 进入设置界面后点击“其他电源设置” -&gt; 点击”选择电源按钮的功能” -&gt;点击”更改当前不可用的设置” -&gt; 将“启动快速启动(推荐)”关闭即可。</p>
+<p><img src="/2021/08/27/3_about_Linux/img10.png" alt="img10"></p>
+<p>(2)关闭安全启动</p>
+<p>应<strong>注意此时电脑已插好刚刚制作的ubuntu系统盘</strong>。</p>
+<p>重新启动电脑，在还是黑屏的时候按住F2，进入BIOS模式，通过键盘←→进如到Security菜单栏，将Secure Boot设置成disabled。</p>
+<p><img src="/2021/08/27/3_about_Linux/img11.png" alt="img11"></p>
+<p>设置完后可以进入Boot菜单栏中检查下，如果Boot Mode显示为UEFI，则说明已经关闭，默认为Legacy BIOS。同时，在下面的EFI开机顺序中把ubuntu系统放在windows前面(之后双系统的切换也是是在这里进行)。最后按F10保存即可。</p>
+<p><img src="/2021/08/27/3_about_Linux/img12.png" alt="img12"></p>
+<p><strong>3.5无U盘启动盘</strong></p>
+<p>如果没有制作U盘启动盘，那么磁盘分区后就重启电脑，启动菜单界面就会显示我们刚刚添加的Ubuntu启动项，选中“NeoSmart的ISO条目”启动项，如下图所示。</p>
+<p><img src="/2021/08/27/3_about_Linux/img13.jpeg" alt="img13"></p>
+<p>之后进入Linux系统的安装。不用U盘启动盘的童鞋请移步以下教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vivi_and_qiao/article/details/98472953">最详细一次成功——手把手教你避坑安装ubuntu双系统-CSDN博客</a></p>
+<p><strong>4.安装Linux系统</strong></p>
+<p>第一次装的时候出现了这样的问题(8月25日)。</p>
+<p><img src="/2021/08/27/3_about_Linux/img14.jpg" alt="img14"></p>
+<p>很僵硬，网上也没查到解决方法，重启了一下之后结果又可以安装了，本来以为没啥事了，事实证明到最后面还是得重新安装…先继续吧！来一波傻瓜式安装。</p>
+<p>(1)重启后出现如下界面，等待片刻即可进入Linux。</p>
+<p><img src="/2021/08/27/3_about_Linux/img15.jpg" alt="img15"></p>
+<p>(2)点击中文(简体)，再点击安装Ubuntu。</p>
+<p><img src="/2021/08/27/3_about_Linux/img16.jpg" alt="img16"></p>
+<p>(3)这里随意吧！</p>
+<p><img src="/2021/08/27/3_about_Linux/img17.jpg" alt="img17"></p>
+<p>(4)注意这里最好点不连wifi，<strong>不然安装时会比较慢，没有网还会导致卡死</strong>。</p>
+<p><img src="/2021/08/27/3_about_Linux/img18.jpg" alt="img18"></p>
+<p>(5)选择正常安装，最下面第三方软件这个可选可不选。</p>
+<p><img src="/2021/08/27/3_about_Linux/img19.jpg" alt="img19"></p>
+<p>(6)这里大部分攻略都说不要选“与Windows boot manager共存”，虽然我还是选了，并没有啥影响。查了下网络似乎是选了的话分区不能自定义。</p>
+<p><img src="/2021/08/27/3_about_Linux/img20.jpg" alt="img20"></p>
+<p>(7)这一步比较麻烦，需要细心。</p>
+<p><img src="/2021/08/27/3_about_Linux/img21.jpg" alt="img21"></p>
+<p><strong>第一步：</strong>找到之前分出来的最大的空闲磁盘并选中，点击左下角的加号“+”。分区必须要选中空闲盘，其他盘是windows占用的，如果选择其他盘，数据会全部格式化。</p>
+<p><strong>第二步：</strong>分配16G空间给/分区（与本机物理内存最好一致，物理内存查询方法：右键我的电脑 -&gt; 点击属性，机带RAM那里就是你的物理内存，我之前以为是8G结果填错了）：</p>
+<p>加号弹出来的创建分区里，依次填写</p>
+<p>大小：16384MB，新分区类型：主分区，新分区位置：空间起始位置，用于EXT4日志文件系统，挂载点选“/”；</p>
+<p>再重复第一步，继续创建新分区。</p>
+<p>分配16G给swap分区：</p>
+<p>依次填写：16384，逻辑分区，空间起始位置，用于交换空间；</p>
+<p>再重复第一步，继续创建新分区。</p>
+<p>分配200M给/boot分区：</p>
+<p>依次填写：200，逻辑分区，空间起始位置，用于EXT4日志文件系统，挂载点选“/boot”；</p>
+<p>2021-09-10更新：建议多给点内存，因为200M的话如果Linux内核要更新就会显示“磁盘空间不足”的问题，很麻烦。建议给1个G。</p>
+<p>再重复第一步，继续创建新分区。</p>
+<p>将剩余全部分配给/home分区：</p>
+<p>依次填写：大小就是剩余的所有，逻辑分区，空间起始位置，用于EXT4日志文件系统，挂载点选“/home”。</p>
+<p><strong>第三步：</strong>最后，设置安装启动引导器的设备处，选择与上面ext4 /boot对应的盘符，我这里是/dev/nvme0n1。</p>
+<p><img src="/2021/08/27/3_about_Linux/img22.jpg" alt="img22"></p>
+<p><strong>第四步：</strong>点击“现在安装”，弹出将改动写入磁盘，点击继续。</p>
+<p><img src="/2021/08/27/3_about_Linux/img23.jpg" alt="img23"></p>
+<p>(8)稍微等待一会儿，安装就完成了，最后需要进行一下基本设置：</p>
+<p>第一步：设置位置，默认上海即可。</p>
+<p>第二步：设置Linux系统的用户名和密码。</p>
+<p>再等待一会儿，出现以下页面就说明win10和ubunt16.04的双系统的安装就已经完成啦！</p>
+<p><img src="/2021/08/27/3_about_Linux/img24.jpg" alt="img24"></p>
+<p>然而···第一次安装的时候出现了以下问题：</p>
+<p><img src="/2021/08/27/3_about_Linux/img25.jpg" alt="img25"></p>
+<p>这想必和之前进入Linux安装前报错是同一个原因，查阅百度后发现基本没出现过这情况···遂重新下载了一遍Ubuntu的ISO文件，结果就直接完成了！再看看报错原因，应该就是错误中所说的“使用了一个旧的安装镜像所造成”，一开始这个Linux的ISO文件是8月6日下载的，结果过了二十多天就用不了了？还挺玄学的···总之下载了ISO文件后尽快安装吧！</p>
+<p>是不是感觉Linux系统的安装也没这么难，然而淘宝上帮你安装Linux收费要50元！自己装的话相当于省下了这笔巨款，美汁汁。</p>
+<p>主要参考网站：</p>
+<p>1.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/61500610">Ubuntu 18.04+Win10双系统安装与配置 - 知乎 (zhihu.com)</a></p>
+<p>2.<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/38e6be8efecf">win10安装ubuntu18.04 LTS双系统 - 简书 (jianshu.com)</a></p>
+<p>3.<a target="_blank" rel="noopener" href="https://blog.csdn.net/vivi_and_qiao/article/details/98472953">最详细一次成功——手把手教你避坑安装ubuntu双系统（免U盘图文详解各种可能出现而导致安装失败的问题）</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86867395">【实战】WIN10+Linux（ubuntu18.04）双系统安装 - 知乎 (zhihu.com)</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/82351771">【手把手AI项目】一、安装win10+linux-Ubuntu16.04的双系统（超细致） - 知乎 (zhihu.com)</a></p>
+<p>6.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/258106139">win10下安装linux双系统 - 知乎 (zhihu.com)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+  
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢阅读-------------</div>
+  
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="GX Li 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="GX Li 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%89%E8%A3%85/" rel="tag"># 安装</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/08/2_eassy/" rel="prev" title="生活随笔">
+      <i class="fa fa-chevron-left"></i> 生活随笔
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/29/4_about_Baiducloud/" rel="next" title="百度网盘突破三界限制达到真仙境的方法">
+      百度网盘突破三界限制达到真仙境的方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="GX Li"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">GX Li</p>
+  <div class="site-description" itemprop="description">大家好我是VAE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linkenfaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linkenfaqiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:252609802@qq.com" title="E-Mail → mailto:252609802@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/lin-ken-fa-qiu-45" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;lin-ken-fa-qiu-45" rel="noopener" target="_blank"><i class="fa fa-heart fa-fw"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/ligaoas208" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;ligaoas208" rel="noopener" target="_blank"><i class="fab fa-codiepie fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      连接网站
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Sat Jul 24 2021 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GX Li</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">32k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">29 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+  <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+  var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+  var countOffset = 20000;  // 初始化首次数据
+
+  function fixCount() {            
+    if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+    {
+      $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+      clearInterval(int);
+    }                  
+    if ($("#busuanzi_container_site_pv").css("display") != "none")
+    {
+      $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+      clearInterval(int); // 停止检测
+    }  
+  }
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

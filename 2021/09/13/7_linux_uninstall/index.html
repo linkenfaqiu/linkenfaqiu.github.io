@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="由于之前分区的问题（分了boot并且boot分区内存太小）因此需要重装Linux系统。以下是双系统中Linux系统的删除方法。 0.试试再插U盘能否覆盖？ 先不删除原本的Linux系统，试试直接插U盘启动盘看看能不能直接覆盖安装。试了下之后发现确实时会提示已有Ubuntu系统，选择“卸载Ubuntu20.04并重新安装”，然而重新安装后不会再重新分区。遂放弃···">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双系统中Linux系统的删除">
+<meta property="og:url" content="http://example.com/2021/09/13/7_linux_uninstall/index.html">
+<meta property="og:site_name" content="林肯法球">
+<meta property="og:description" content="由于之前分区的问题（分了boot并且boot分区内存太小）因此需要重装Linux系统。以下是双系统中Linux系统的删除方法。 0.试试再插U盘能否覆盖？ 先不删除原本的Linux系统，试试直接插U盘启动盘看看能不能直接覆盖安装。试了下之后发现确实时会提示已有Ubuntu系统，选择“卸载Ubuntu20.04并重新安装”，然而重新安装后不会再重新分区。遂放弃···">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/09/13/7_linux_uninstall/img1.png">
+<meta property="og:image" content="http://example.com/2021/09/13/7_linux_uninstall/img2.png">
+<meta property="og:image" content="http://example.com/2021/09/13/7_linux_uninstall/img3.png">
+<meta property="og:image" content="http://example.com/2021/09/13/7_linux_uninstall/img4.png">
+<meta property="og:image" content="http://example.com/2021/09/13/7_linux_uninstall/image-20211229143825603.png">
+<meta property="article:published_time" content="2021-09-13T03:48:48.000Z">
+<meta property="article:modified_time" content="2022-02-07T15:03:47.288Z">
+<meta property="article:author" content="GX Li">
+<meta property="article:tag" content="安装">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/13/7_linux_uninstall/img1.png">
+
+<link rel="canonical" href="http://example.com/2021/09/13/7_linux_uninstall/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>双系统中Linux系统的删除 | 林肯法球</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">林肯法球</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">啦啦啦啦啦</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/13/7_linux_uninstall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="GX Li">
+      <meta itemprop="description" content="大家好我是VAE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林肯法球">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          双系统中Linux系统的删除
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-13 11:48:48" itemprop="dateCreated datePublished" datetime="2021-09-13T11:48:48+08:00">2021-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-07 23:03:47" itemprop="dateModified" datetime="2022-02-07T23:03:47+08:00">2022-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">技术向</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>由于之前分区的问题（分了boot并且boot分区内存太小）因此需要重装Linux系统。以下是双系统中Linux系统的删除方法。</p>
+<p><strong>0.试试再插U盘能否覆盖？</strong></p>
+<p>先不删除原本的Linux系统，试试直接插U盘启动盘看看能不能直接覆盖安装。试了下之后发现确实时会提示已有Ubuntu系统，选择“卸载Ubuntu20.04并重新安装”，然而重新安装后不会再重新分区。遂放弃···</p>
+<span id="more"></span>
+
+<p><strong>1.查看电脑分区信息</strong></p>
+<p>可以从当时进行磁盘压缩那里查看电脑分区信息(右键此电脑 -&gt; 管理 -&gt; 存储 -&gt; 磁盘管理)，如果记得是哪几个区的话直接右键然后删除卷即可。如果不记得是哪几个区，可以通过windows下的diskpart，或者网上下载diskgenius这两种方法来判断，笔者选择的是后者，因为可以直接看到Ubuntu各分区下的文件。</p>
+<p><strong>2.通过diskpart来查看各分区信息</strong></p>
+<p>win系统中打开cmd后输入【diskpart】，然后再弹出来的界面中输入【list disk】来查询磁盘信息。网上的教程都是会显示有两个磁盘，但是我这里只有一个，(可能是当时选择了“Ubuntu和windows boot manager共存的原因”，导致了它们都在一个磁盘里)。然后输入【select disk 0】来选择磁盘0，再输入【list partition】来输出所选磁盘的信息。</p>
+<p><img src="/2021/09/13/7_linux_uninstall/img1.png" alt="img1"></p>
+<p>从图中可以看到，类型为“未知”的都是Linux系统的分区，输入【select patition 6】，即可选择第6个分区，然后【delete partition override】即可删除该分区。重复该步骤直到把Linux的分区删除完为止。或者就是按第1步中的方法直接在磁盘管理中右键删除，毕竟这一步只是用来找哪些是Linux分区的。</p>
+<p><strong>2.5通过diskgenius来查看各分区</strong></p>
+<p>在网上下载DiskGenius<del>并破解</del>，打开后从页面中基本就能判断出哪些是Linux的分区了(没有盘符的并且名字为“分区”的)。用这个软件还能直接看到Linux各分区下的文件，比如Linux系统中的图片等（误打误撞就发现了Linux系统给win10系统共享文件的方法，然而实际上复制文件需要会员···）。右键要删除的分区 -&gt; 删除当前分区 -&gt; 点击左上角的“保存更改” 即可。</p>
+<p><img src="/2021/09/13/7_linux_uninstall/img2.png" alt="img2"></p>
+<p><strong>3.删除Ubuntu引导</strong></p>
+<p>通过以上任意方法删除后，系统内仍保留Ubuntu的引导项，也就是Ubuntu系统还没完全删干净，可以通过DiskGenius和EasyUEFI这两个软件来删除。</p>
+<p>（1）通过DiskGenius来删除</p>
+<p>在DiskGenius软件中进入到SYSTEM盘中，打开EFI文件夹，将Boot和ubuntu里面的文件删除即可。删除Boot文件夹的时候可以留意一下文件的修改时间，以免文件夹里还有win系统的东西。删除后再重启就看不到Ubuntu启动项啦。</p>
+<p><img src="/2021/09/13/7_linux_uninstall/img3.png" alt="img3"></p>
+<p>（2）通过EasyUEFI来删除</p>
+<p>这是网上介绍的方法，在百度上下载EasyUEFI后，点击管理EFI启动项，在以下界面删除Ubuntu启动项即可。</p>
+<p><img src="/2021/09/13/7_linux_uninstall/img4.png" alt="img4"></p>
+<p>PS: 我用这个软件试了两台电脑，都不能成功删除引导项，说明网上的方法也不都是管用的呀，还是用diskgenius吧！</p>
+<p><strong>4.可能出现的问题</strong></p>
+<p>在2021-12-29中午想删掉实验室电脑的ubuntu系统，清掉了ubuntu系统的占用磁盘后，还没用diskgenius删除Ubuntu的引导，就重启了电脑，然后出现了以下画面：</p>
+<p><img src="/2021/09/13/7_linux_uninstall/image-20211229143825603.png" alt="image-20211229143825603"></p>
+<p>输入exit就可以退出这一命令行，进入windows系统。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+  
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束<i class="fa fa-paw"></i>感谢阅读-------------</div>
+  
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="GX Li 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="GX Li 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%89%E8%A3%85/" rel="tag"># 安装</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/11/6_about_nnUNet/" rel="prev" title="6_about_nnUNet">
+      <i class="fa fa-chevron-left"></i> 6_about_nnUNet
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/28/9-google-download/" rel="next" title="谷歌云盘中文件的下载方法">
+      谷歌云盘中文件的下载方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="GX Li"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">GX Li</p>
+  <div class="site-description" itemprop="description">大家好我是VAE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/linkenfaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;linkenfaqiu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:252609802@qq.com" title="E-Mail → mailto:252609802@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/lin-ken-fa-qiu-45" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;lin-ken-fa-qiu-45" rel="noopener" target="_blank"><i class="fa fa-heart fa-fw"></i>知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/ligaoas208" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;ligaoas208" rel="noopener" target="_blank"><i class="fab fa-codiepie fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      连接网站
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Sat Jul 24 2021 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GX Li</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">32k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">29 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+  <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+  var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+  var countOffset = 20000;  // 初始化首次数据
+
+  function fixCount() {            
+    if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+    {
+      $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+      clearInterval(int);
+    }                  
+    if ($("#busuanzi_container_site_pv").css("display") != "none")
+    {
+      $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+      clearInterval(int); // 停止检测
+    }  
+  }
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
